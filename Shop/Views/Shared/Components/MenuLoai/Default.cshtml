@@ -1,0 +1,52 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@model IEnumerable<Loai>
+@*Nằm trong Views/Shared/Compoments/MenLoai/Defaults...*@
+@{
+    var dsloaiCha = Model.Where(p => p.MaLoaiCha == null);//lấy danh sách các cha
+
+}
+<ul class="menu-items col-xs-12">
+    
+    @foreach (var lo in dsloaiCha)
+    {
+        var dsLoaiCon = Model.Where(p => p.MaLoaiCha == lo.MaLoai);
+
+        <li class="menu-item depth-1 menucol-1-3 ">
+            <div class="title title_font"><a href="#">@lo.TenLoai</a></div>
+            <ul class="submenu">
+                @foreach (var loc in dsLoaiCon)
+                {
+                    <li class="menu-item">
+                        <div class="title"><a href="shop_grid.html">@loc.TenLoai</a></div>
+                    </li>
+                }
+                
+            </ul>
+        </li>
+    }
+    @*Xóa tất cả thẻ html chỉ giữ lại 1 thẻ để code thôi
+    <li class="menu-item depth-1 menucol-1-3 ">
+        <div class="title title_font"> <a href="#">Fashion</a></div>
+        <ul class="submenu">
+            <li class="menu-item">
+                <div class="title"> <a href="shop_grid.html">Women</a></div>
+            </li>
+            <li class="menu-item">
+                <div class="title"> <a href="shop_grid.html">Men</a></div>
+            </li>
+            <li class="menu-item">
+                <div class="title"> <a href="shop_grid.html">Kids</a></div>
+            </li>
+            <li class="menu-item">
+                <div class="title"> <a href="shop_grid.html">Clothings</a></div>
+            </li>
+            <li class="menu-item">
+                <div class="title"> <a href="shop_grid.html">Shoes</a></div>
+            </li>
+        </ul>
+    </li>*@
+</ul>

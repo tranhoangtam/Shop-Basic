@@ -1,0 +1,103 @@
+﻿@model IEnumerable<Shop.Models.HangHoa>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Danh sách Hàng hóa</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Tạo mới</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenHh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DonGia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SoLuong)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hinh)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Loai)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenHh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DonGia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                <img src="~/Hinh/HangHoa/@item.Hinh" width="100" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoTa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Loai.TenLoai)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.MaHh" class="btn btn-secondary">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                    Sửa
+                </a> 
+                <a asp-action="Details" asp-route-id="@item.MaHh" class="btn btn-info">
+                    <i class="glyphicon glyphicon-list"></i>
+                    Chi tiết
+                </a> 
+                <a asp-action="Delete" asp-route-id="@item.MaHh" class="btn btn-danger">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    Xóa
+                </a>
+                <button type="button" data-mahh="@item.MaHh" data-tenhh="@item.TenHh" class="btn btn-danger xoahh">Xóa</button>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8.13.4/dist/sweetalert2.all.min.js"></script>
+<script>
+    $(function() {
+        $(".xoahh").click(function() {
+            var mahh = $(this).attr("data-mahh");
+            var tenhh = $(this).attr("data-tenhh");
+
+            Swal.fire({
+                title: 'Bạn muốn xóa không?',
+                html: "Bạn thật sự muốn xóa <b>" + tenhh + "</b>!",
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Hủy bỏ',
+                confirmButtonText: 'Xóa ngay'
+            }).then((result) => {
+                if (result.value) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
+            })
+        });
+    });
+</script>

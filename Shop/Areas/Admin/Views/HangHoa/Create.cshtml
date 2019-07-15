@@ -1,0 +1,95 @@
+﻿@model Shop.Models.HangHoa
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>HangHoa</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaLoai" class="control-label"></label>
+                @*//tạo partial view do thằng này gọi nhiều nơi*@
+                @await Html.PartialAsync("_SelectLoai",(MySelectList<Loai>)ViewBag.Loai)
+
+                @*@*<select asp-for="MaLoai" class ="form-control" asp-items="ViewBag.MaLoai"></select>*@
+                @*@{
+                    var dsLoai = (MySelectList<Loai>) ViewBag.Loai;
+                    var dsLoaiCha = dsLoai.Data.Where(p=>p.MaLoaiCha==null).ToList();
+
+                }*@
+                @*<select name="MaLoai" class="form-control">
+                    @foreach (var lo in dsLoaiCha)
+                    {
+                        var dsLoaiCon = dsLoai.Data.Where(p => p.MaLoaiCha == lo.MaLoai).ToList();
+                        <optgroup label="@lo.TenLoai">
+                            @foreach (var lc in dsLoaiCon)
+                            {
+                                <option value="@lc.MaLoai">@lc.TenLoai</option>   
+                            }
+                        </optgroup>
+                    }
+                    
+                </select>*@
+
+            </div>
+            <div class="form-group">
+                <label asp-for="TenHh" class="control-label"></label>
+                <input asp-for="TenHh" class="form-control" />
+                <span asp-validation-for="TenHh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DonGia" class="control-label"></label>
+                <input asp-for="DonGia" class="form-control" />
+                <span asp-validation-for="DonGia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoLuong" class="control-label"></label>
+                <input asp-for="SoLuong" class="form-control" />
+                <span asp-validation-for="SoLuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Hinh" class="control-label"></label>
+                @*<input asp-for="Hinh" name="fHinh" type="file" class="form-control" />*@
+                <textarea asp-for="MoTa" class="form-control" rows="5"></textarea>
+                <span asp-validation-for="Hinh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoTa" class="control-label"></label>
+                <input asp-for="MoTa" class="form-control" />
+                <span asp-validation-for="MoTa" class="text-danger"></span>
+            </div>
+           
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<div>
+    <a asp-action="Index" class="btn btn-success" >Back to List</a>
+</div>*@
+
+<script src="https://cdn.ckeditor.com/ckeditor5/12.3.0/classic/ckeditor.js"></script>
+<script>
+    $(function() {
+        ClassicEditor
+            .create( document.querySelector( '#MoTa' ),
+                {
+                    minheight:'300px'
+                } )
+            .then( editor => {
+                console.log( editor );
+            } )
+            .catch( error => {
+                console.error( error );
+            } );
+    });
+</script>

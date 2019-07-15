@@ -1,0 +1,39 @@
+﻿@using System.Reflection.Metadata.Ecma335
+@model MySelectList<Loai>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    //var dsLoai = (MySelectList<Loai>) ViewBag.Loai;
+    //nếu gửi dạng model
+    var dsLoai = Model;
+    var dsLoaiCha = dsLoai.Data.Where(p=>p.MaLoaiCha==null).ToList();
+
+}
+<select name="MaLoai" class="form-control">
+    @foreach (var lo in dsLoaiCha)
+    {
+        var dsLoaiCon = dsLoai.Data.Where(p => p.MaLoaiCha == lo.MaLoai).ToList();
+        <optgroup label="@lo.TenLoai">
+            @foreach (var lc in dsLoaiCon)
+            {
+                //ban đầu
+                <option value="@lc.MaLoai">@lc.TenLoai</option>
+                //cách 1
+            @*var chuoi = Model.Selected.HasValue && Model.Selected == lc.MaLoai ? "Selected" : "";
+            <option value="@lc.MaLoai" @chuoi>@lc.TenLoai</option>*@
+                //cách 2 JQ
+            }
+        </optgroup>
+    }
+                    
+</select>
+<script>
+    $(function() {
+
+        @if (Model.Selected.HasValue)
+        {
+            @:$("select[name='MaLoai']").val("@Model.Selected.Value");
+        }
+    });
+</script>

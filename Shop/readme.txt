@@ -9,3 +9,6 @@ Hỗ trợ framework: Devexpress, Telerik
 
 ViewComponent
 
+https://sweetalert2.github.io/
+
+https://ckeditor.com/docs/ckeditor5/latest/builds/guides/quick-start.html
